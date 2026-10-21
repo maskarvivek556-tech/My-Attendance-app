@@ -1,0 +1,112 @@
+
+.container {
+  max-width: none;
+}
+
+.controls {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 22px;
+  padding: 26px;
+  margin-bottom: 28px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.field input,
+.field select {
+  min-width: 210px;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.table {
+  width: 100%;
+  min-width: 550px;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.table th {
+  background: #eef2ff;
+  color: #38435f;
+  font-size: 15px;
+}
+
+.saveButton {
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #655df1, #453bc9);
+  color: white;
+  border: none;
+  border-radius: 9px;
+  font-weight: 700;
+  box-shadow: 0 7px 17px rgba(79, 70, 229, 0.2);
+}
+
+.saveButton:hover:not(:disabled) {
+  box-shadow: 0 10px 22px rgba(79, 70, 229, 0.29);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.footer > span {
+  color: #758097;
+  font-size: 15px;
+}
+
+.emptyHint {
+  margin-top: 16px;
+  color: #a15a27;
+  font-size: 13px;
+}
+
+.message {
+  margin-bottom: 16px;
+  padding: 14px 17px;
+  border-radius: 9px;
+  background: #edf9f1;
+  color: #166534;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .field input,
+  .field select {
+    width: 100%;
+  }
+}

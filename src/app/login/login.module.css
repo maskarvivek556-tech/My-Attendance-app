@@ -1,0 +1,106 @@
+
+.wrapper {
+  width: min(540px, calc(100% - 48px));
+  margin: 48px auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 42px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(43, 53, 99, 0.12);
+}
+
+.form h1 {
+  font-size: 36px;
+  letter-spacing: -0.8px;
+}
+
+.eyebrow {
+  color: #5a50d3;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.description {
+  color: #64748b;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.demoNotice {
+  padding: 11px 13px;
+  margin-bottom: 4px;
+  border: 1px solid #dedcff;
+  border-radius: 10px;
+  background: #f5f4ff;
+  color: #5147ba;
+  font-size: 15px;
+}
+
+.form label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.form input,
+.form select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  color: #172554;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form button {
+  font-size: 16px;
+}
+
+.form button:disabled {
+  cursor: wait;
+  opacity: 0.75;
+}
+
+.form input:focus,
+.form select:focus {
+  border-color: #7169ef;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 91, 235, 0.13);
+}
+
+.form button {
+  padding: 13px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #655df1, #453bc9);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(79, 70, 229, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 11px 23px rgba(79, 70, 229, 0.3);
+}
+
+.message {
+  padding: 12px;
+  border-radius: 8px;
+  background: #eef2ff;
+  color: #3730a3;
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding: 24px 20px;
+  }
+}

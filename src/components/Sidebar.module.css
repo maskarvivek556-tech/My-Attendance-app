@@ -1,0 +1,52 @@
+
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  padding: 30px 20px;
+  background: white;
+  border-right: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
+
+.title {
+  padding: 0 12px 26px;
+  color: #4f46e5;
+  font-size: 24px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.link {
+  padding: 14px;
+  border-radius: 10px;
+  color: #475569;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.link:hover,
+.active {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .link {
+    padding: 12px 14px;
+  }
+}

@@ -1,0 +1,148 @@
+
+.hero {
+  min-height: 75vh;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 64px;
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+.content {
+  max-width: 650px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-bottom: 28px;
+  border-radius: 20px;
+  background: #e0e7ff;
+  color: #4338ca;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.content h1 {
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+}
+
+.content h1 span {
+  color: var(--primary);
+}
+
+.content p {
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 19px;
+  max-width: 530px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 38px;
+}
+
+.primaryButton,
+.secondaryButton {
+  display: inline-block;
+  padding: 15px 23px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.primaryButton {
+  background: var(--primary);
+  color: white;
+}
+
+.primaryButton:hover {
+  background: var(--primary-dark);
+}
+
+.secondaryButton {
+  background: white;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.visual {
+  padding: 40px;
+  border-radius: 24px;
+  background: white;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px #17255412;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 26px;
+}
+
+.visual h2 {
+  font-size: 29px;
+}
+
+.visual p {
+  color: var(--muted);
+  margin-top: 11px;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+
+.stat span {
+  color: var(--muted);
+}
+
+.stat strong {
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 38px;
+    min-height: auto;
+  }
+
+  .content h1 {
+    letter-spacing: -0.5px;
+  }
+
+  .visual {
+    padding: 28px;
+  }
+}
+
+@media (max-width: 400px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions a {
+    text-align: center;
+  }
+}
