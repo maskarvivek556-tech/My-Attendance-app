@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import AuthGate from "@/components/AuthGate";
 import AnimatedBackdrop from "@/components/AnimatedBackdrop";
+import WorkspaceShell from "@/components/WorkspaceShell";
 
 export const metadata = {
   title: "AttendEase | Attendance Management",
@@ -21,7 +22,9 @@ export default function RootLayout({ children }) {
       <body>
         <AnimatedBackdrop />
         <Navbar />
-        <AuthGate>{children}</AuthGate>
+        <WorkspaceShell>
+          <AuthGate>{children}</AuthGate>
+        </WorkspaceShell>
       </body>
     </html>
   );

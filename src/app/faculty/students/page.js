@@ -4,26 +4,68 @@
 import { useState } from "react";
 import styles from "./students.module.css";
 import { readData, saveData } from "@/lib/api";
+import {
+  COURSES,
+  getCourseSemesters,
+  getStudentSemester,
+  normalizeCourse,
+  normalizeSemester,
+} from "@/lib/courses";
+import CourseSelector from "@/components/CourseSelector";
 
-const emptyForm = {
+const emptyForm = (course = "BCA") => ({
   name: "",
   rollNo: "",
   email: "",
-  course: "",
-};
+  course,
+  semester: "1",
+});
 
 export default function StudentsPage() {
   const [students, setStudents] = useState(() => readData("students", []));
-  const [form, setForm] = useState(emptyForm);
+  const [selectedCourse, setSelectedCourse] = useState("BCA");
+  const [selectedSemester, setSelectedSemester] = useState(1);
+  const [form, setForm] = useState(() => emptyForm());
   const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState("");
+  const filteredStudents = students.filter(
+    (student) =>
+      normalizeCourse(student.course) === selectedCourse &&
+      getStudentSemester(student) === selectedSemester
+  );
 
   function updateField(event) {
     setForm({ ...form, [event.target.name]: event.target.value });
   }
 
+  function selectCourse(course) {
+    setSelectedCourse(course);
+    setSelectedSemester(1);
+    if (editingId === null) {
+      setForm((current) => ({ ...current, course, semester: "1" }));
+    } else {
+      setForm((current) => ({ ...current, semester: "1" }));
+    }
+  }
+
+  function selectSemester(semester) {
+    setSelectedSemester(semester);
+    if (editingId === null) {
+      setForm((current) => ({ ...current, course: selectedCourse, semester: String(semester) }));
+    }
+  }
+
   function submitStudent(event) {
     event.preventDefault();
+    const studentCourse = normalizeCourse(form.course);
+    const studentSemester = normalizeSemester(form.semester);
+    if (
+      !COURSES.includes(studentCourse) ||
+      !getCourseSemesters(studentCourse).includes(studentSemester)
+    ) {
+      setMessage("Select a valid course and semester for the student.");
+      return;
+    }
 
     const duplicate = students.some(
       (student) =>
@@ -41,7 +83,13 @@ export default function StudentsPage() {
     if (editingId !== null) {
       updated = students.map((student) =>
         student.id === editingId
-          ? { ...student, ...form, rollNo: form.rollNo.trim() }
+          ? {
+              ...student,
+              ...form,
+              course: studentCourse,
+              semester: studentSemester,
+              rollNo: form.rollNo.trim(),
+            }
           : student
       );
       setMessage("Student updated successfully.");
@@ -50,6 +98,8 @@ export default function StudentsPage() {
         ...students,
         {
           ...form,
+          course: studentCourse,
+          semester: studentSemester,
           rollNo: form.rollNo.trim(),
           id: Date.now(),
         },
@@ -62,7 +112,9 @@ export default function StudentsPage() {
       return;
     }
     setStudents(updated);
-    setForm(emptyForm);
+    setSelectedCourse(studentCourse);
+    setSelectedSemester(studentSemester);
+    setForm({ ...emptyForm(studentCourse), semester: String(studentSemester) });
     setEditingId(null);
   }
 
@@ -72,7 +124,10 @@ export default function StudentsPage() {
       rollNo: student.rollNo,
       email: student.email,
       course: student.course,
+      semester: String(getStudentSemester(student)),
     });
+    setSelectedCourse(normalizeCourse(student.course) || "BCA");
+    setSelectedSemester(getStudentSemester(student));
     setEditingId(student.id);
     setMessage("");
   }
@@ -86,7 +141,7 @@ export default function StudentsPage() {
     setStudents(updated);
     setMessage("Student deleted.");
     if (editingId === id) {
-      setForm(emptyForm);
+      setForm({ ...emptyForm(selectedCourse), semester: String(selectedSemester) });
       setEditingId(null);
     }
   }
@@ -98,6 +153,25 @@ export default function StudentsPage() {
         <p className="pageDescription">
           Add, update and manage student records.
         </p>
+
+        <section className={styles.coursePanel} aria-label="Filter students by course and semester">
+          <CourseSelector selectedCourse={selectedCourse} onSelect={selectCourse} />
+          <div className={styles.filterField}>
+            <label htmlFor="student-filter-semester">Semester</label>
+            <select
+              id="student-filter-semester"
+              value={selectedSemester}
+              onChange={(event) => selectSemester(Number(event.target.value))}
+            >
+              {getCourseSemesters(selectedCourse).map((semester) => (
+                <option key={semester} value={semester}>Semester {semester}</option>
+              ))}
+            </select>
+          </div>
+          <p className={styles.courseSummary}>
+            Showing <strong>{selectedCourse} · Semester {selectedSemester}</strong> students.
+          </p>
+        </section>
 
         {message && <p className={styles.message}>{message}</p>}
 
@@ -141,14 +215,35 @@ export default function StudentsPage() {
 
           <div className={styles.field}>
             <label htmlFor="course">Course / Class</label>
-            <input
+            <select
               id="course"
               name="course"
               value={form.course}
+              onChange={(event) => setForm((current) => ({
+                ...current,
+                course: event.target.value,
+                semester: "1",
+              }))}
+              required
+            >
+              {COURSES.map((course) => (
+                <option key={course} value={course}>{course}</option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.field}>
+            <label htmlFor="student-semester">Semester</label>
+            <select
+              id="student-semester"
+              name="semester"
+              value={form.semester}
               onChange={updateField}
               required
-              placeholder="e.g. BCA"
-            />
+            >
+              {getCourseSemesters(form.course).map((semester) => (
+                <option key={semester} value={semester}>Semester {semester}</option>
+              ))}
+            </select>
           </div>
 
           <button className={styles.submitButton} type="submit">
@@ -159,7 +254,7 @@ export default function StudentsPage() {
             <button
               type="button"
               onClick={() => {
-                setForm(emptyForm);
+                setForm({ ...emptyForm(selectedCourse), semester: String(selectedSemester) });
                 setEditingId(null);
                 setMessage("");
               }}
@@ -169,7 +264,9 @@ export default function StudentsPage() {
           )}
         </form>
 
-        <h2 style={{ marginBottom: 14 }}>Student List ({students.length})</h2>
+        <h2 className={styles.listHeading}>
+          {selectedCourse} · Semester {selectedSemester} Student List <span>{filteredStudents.length}</span>
+        </h2>
 
         <div className={styles.tableWrapper}>
           <table className={styles.table}>
@@ -179,16 +276,18 @@ export default function StudentsPage() {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Course</th>
+                <th>Semester</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {students.map((student) => (
+              {filteredStudents.map((student) => (
                 <tr key={student.id}>
                   <td>{student.rollNo}</td>
                   <td>{student.name}</td>
                   <td>{student.email}</td>
                   <td>{student.course}</td>
+                  <td>{getStudentSemester(student)}</td>
                   <td>
                     <button
                       type="button"
@@ -207,9 +306,9 @@ export default function StudentsPage() {
                   </td>
                 </tr>
               ))}
-              {students.length === 0 && (
+              {filteredStudents.length === 0 && (
                 <tr>
-                  <td colSpan={5}>No students added yet.</td>
+                  <td colSpan={6}>No {selectedCourse} students in Semester {selectedSemester} yet.</td>
                 </tr>
               )}
             </tbody>

@@ -121,6 +121,93 @@
   color: #248363;
 }
 
+.pendingSection {
+  margin-bottom: 38px;
+  padding: 22px 24px;
+  border: 1px solid #e1e5f0;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 7px 24px rgba(30, 41, 80, 0.035);
+}
+
+.pendingHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.pendingHeading h2 {
+  color: #202b46;
+  font-size: 19px;
+}
+
+.pendingHeading p {
+  margin-top: 3px;
+  color: #758097;
+  font-size: 14px;
+}
+
+.pendingHeading > a {
+  flex: 0 0 auto;
+  color: #5148c7;
+  font-size: 14px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.pendingHeading > a:hover {
+  text-decoration: underline;
+}
+
+.pendingList {
+  display: grid;
+  gap: 7px;
+  margin-top: 16px;
+  list-style: none;
+}
+
+.pendingList a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: #f8f9fc;
+  text-decoration: none;
+}
+
+.pendingList a:hover {
+  background: #f1f0ff;
+}
+
+.pendingList a > span:first-child {
+  display: grid;
+  min-width: 0;
+}
+
+.pendingList strong {
+  color: #293651;
+  font-size: 14px;
+}
+
+.pendingList small {
+  color: #758097;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.requestStatus {
+  flex: 0 0 auto;
+  padding: 4px 9px;
+  border-radius: 20px;
+  background: #fff5dc;
+  color: #8a5a00;
+  font-size: 12px;
+  font-weight: 750;
+}
+
 .sectionHeading {
   margin-bottom: 20px;
 }
@@ -229,5 +316,15 @@
 
   .welcomeIcon {
     display: none;
+  }
+
+  .pendingSection {
+    padding: 17px;
+  }
+
+  .pendingHeading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 }

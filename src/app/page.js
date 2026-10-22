@@ -26,7 +26,7 @@ export default function HomePage() {
             <Link href="/login" className={styles.primaryButton}>
               Get Started
             </Link>
-
+            
             <Link href="/admin" className={styles.secondaryButton}>
               Admin Dashboard
             </Link>

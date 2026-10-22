@@ -1,18 +1,50 @@
 
 .container {
   max-width: none;
+  container-type: inline-size;
 }
 
 .controls {
   display: flex;
   align-items: end;
   flex-wrap: wrap;
-  gap: 22px;
-  padding: 26px;
+  gap: 22px 28px;
+  padding: 24px 26px;
   margin-bottom: 28px;
   background: white;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(30, 41, 80, 0.035);
+}
+
+.rosterHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 14px;
+}
+
+.rosterHeading h2 {
+  margin: 0 0 5px;
+  color: #1e293b;
+  font-size: 20px;
+}
+
+.rosterHeading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.rosterHeading > span {
+  flex: 0 0 auto;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .field {
@@ -27,10 +59,32 @@
   padding: 12px 14px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
+  background: #fff;
+}
+
+.field select:disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.rosterPrompt {
+  padding: 24px;
+  border: 1px dashed #c7d2fe;
+  border-radius: 12px;
+  background: #f8faff;
+  color: #475569;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.rosterPrompt + .emptyHint {
+  margin-top: 12px;
+  border-radius: 8px;
 }
 
 .tableWrapper {
-  overflow-x: auto;
+  overflow: hidden;
   background: white;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
@@ -38,7 +92,7 @@
 
 .table {
   width: 100%;
-  min-width: 550px;
+  table-layout: fixed;
   border-collapse: collapse;
 }
 
@@ -46,13 +100,169 @@
 .table td {
   padding: 16px;
   text-align: left;
+  overflow-wrap: anywhere;
   border-bottom: 1px solid #e2e8f0;
+}
+
+.table th:nth-child(1) {
+  width: 12%;
+}
+
+.table th:nth-child(2) {
+  width: 20%;
+}
+
+.table th:nth-child(3) {
+  width: 25%;
+}
+
+.table th:nth-child(4) {
+  width: 18%;
+}
+
+.table th:nth-child(5) {
+  width: 25%;
 }
 
 .table th {
   background: #eef2ff;
   color: #38435f;
   font-size: 15px;
+}
+
+.statusButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.statusButton {
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.statusButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.presentButton {
+  background: #e8f7ef;
+  color: #21734b;
+}
+
+.absentButton {
+  background: #fff0f0;
+  color: #b33a3a;
+}
+
+.selectedStatus {
+  border-color: currentColor;
+  box-shadow: 0 0 0 2px currentColor inset;
+}
+
+.savedStatus {
+  display: inline-flex;
+  flex-direction: column;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.savedStatus small,
+.notSaved {
+  color: #748097;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.requestButton {
+  min-height: 36px !important;
+  padding: 6px 9px;
+  border: 1px solid #d8d5ff;
+  border-radius: 7px;
+  background: #f5f4ff;
+  color: #5148c7;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.requestButton:hover {
+  background: #ebe9ff;
+}
+
+.pendingRequest {
+  color: #8a5a00;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.requestForm {
+  display: grid;
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.requestForm label {
+  color: #526078;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.requestForm select,
+.requestForm textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 36px;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.requestForm textarea {
+  resize: vertical;
+}
+
+.photoButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 11px;
+  border: 1px solid #d8d5ff;
+  border-radius: 8px;
+  background: #f5f4ff;
+  color: #5148c7;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.photoButton:hover {
+  background: #ebe9ff;
+}
+
+.photoButton svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
+.photoButton:focus-visible {
+  outline: 2px solid #5148c7;
+  outline-offset: 2px;
+}
+
+.photoPreview {
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin-top: 8px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .saveButton {
@@ -99,14 +309,189 @@
   font-weight: 600;
 }
 
+.cameraBackdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.72);
+}
+
+.cameraDialog {
+  width: min(100%, 640px);
+  padding: 24px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
+}
+
+.cameraDialog h2 {
+  margin-bottom: 16px;
+  color: #182342;
+  font-size: 20px;
+}
+
+.cameraPreview {
+  display: block;
+  width: 100%;
+  max-height: min(65vh, 520px);
+  border-radius: 10px;
+  background: #0f172a;
+  object-fit: contain;
+}
+
+.cameraActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.cameraCancel {
+  padding: 12px 18px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  background: white;
+  color: #334155;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
   .controls {
     align-items: stretch;
     flex-direction: column;
   }
 
+  .rosterHeading {
+    align-items: flex-start;
+  }
+
   .field input,
   .field select {
     width: 100%;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 7px;
+    font-size: 13px;
+  }
+
+  .table th:nth-child(1) {
+    width: 12%;
+  }
+
+  .table th:nth-child(2) {
+    width: 19%;
+  }
+
+  .table th:nth-child(3) {
+    width: 23%;
+  }
+
+  .table th:nth-child(4) {
+    width: 18%;
+  }
+
+  .table th:nth-child(5) {
+    width: 28%;
+  }
+
+  .statusButtons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .statusButton {
+    padding: 7px 9px;
+    font-size: 12px;
+  }
+
+  .photoButton {
+    padding: 7px;
+    font-size: 11px;
+  }
+
+  .cameraDialog {
+    padding: 16px;
+  }
+
+  .photoButton svg {
+    width: 16px;
+    height: 16px;
+    flex-basis: 16px;
+  }
+}
+
+@container (max-width: 900px) {
+  .tableWrapper {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+
+  .table,
+  .table tbody {
+    display: grid;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  .table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 5px 16px rgba(30, 41, 80, 0.04);
+  }
+
+  .table tbody td {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px;
+    border-bottom: 1px solid #edf0f5;
+    font-size: 13px;
+  }
+
+  .table tbody td::before {
+    flex: 0 0 auto;
+    color: #64748b;
+    content: attr(data-label);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .table tbody td:nth-child(n + 3) {
+    grid-column: 1 / -1;
+  }
+
+  .table tbody tr td[colspan] {
+    grid-column: 1 / -1;
+  }
+
+  .table tbody td[colspan]::before {
+    content: none;
+  }
+
+  .requestForm {
+    width: min(100%, 260px);
   }
 }

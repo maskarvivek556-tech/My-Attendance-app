@@ -9,6 +9,7 @@ import {
   parseSession,
   subscribeToSession,
 } from "@/lib/session";
+import { getStudentSemester } from "@/lib/courses";
 
 export default function StudentPage() {
   const [students] = useState(() => readData("students", []));
@@ -68,6 +69,10 @@ export default function StudentPage() {
                 <div className={styles.detail}>
                   <span className={styles.label}>Course</span>
                   <span className={styles.value}>{student.course}</span>
+                </div>
+                <div className={styles.detail}>
+                  <span className={styles.label}>Semester</span>
+                  <span className={styles.value}>Semester {getStudentSemester(student)}</span>
                 </div>
               </div>
             </section>

@@ -51,7 +51,7 @@
 
 .form {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: end;
   gap: 20px;
   margin-bottom: 26px;
@@ -73,6 +73,15 @@
   padding: 12px 15px;
 }
 
+.field select {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+}
+
 .primaryButton {
   min-height: 50px;
   padding: 12px 18px;
@@ -82,6 +91,27 @@
   color: #fff;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.cancelButton,
+.editButton {
+  min-height: 44px;
+  padding: 10px 15px;
+  border: 1px solid #dce1ed;
+  border-radius: 9px;
+  background: #fff;
+  color: #4f46e5;
+  font-weight: 700;
+}
+
+.cancelButton {
+  color: #536078;
+}
+
+.notice {
+  margin: -10px 0 24px;
+  color: #925b16;
+  font-size: 14px;
 }
 
 .primaryButton:hover {
@@ -140,6 +170,25 @@
   font-size: 15px;
 }
 
+.subjects {
+  display: grid;
+  gap: 18px;
+}
+
+.subjectGroup {
+  padding: 0 16px;
+  border: 1px solid #edf0f5;
+  border-radius: 12px;
+  background: #fbfcff;
+}
+
+.subjectGroup h3 {
+  margin: 0;
+  padding: 14px 0 10px;
+  color: #3730a3;
+  font-size: 15px;
+}
+
 .subject {
   display: flex;
   align-items: center;
@@ -161,6 +210,7 @@
 
 .subjectInfo {
   display: grid;
+  min-width: 0;
   flex: 1;
   gap: 3px;
 }
@@ -191,6 +241,10 @@
 @media (max-width: 740px) {
   .form {
     grid-template-columns: 1fr;
+  }
+
+  .subject {
+    flex-wrap: wrap;
   }
 }
 

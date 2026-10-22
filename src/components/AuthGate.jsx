@@ -39,9 +39,7 @@ export default function AuthGate({ children }) {
     }
 
     if (pathname === "/") {
-      router.replace(
-        allowed ? dashboardForRole(session.role) : "/login"
-      );
+      return;
     } else if (pathname === "/login" && allowed) {
       router.replace(dashboardForRole(session.role));
     } else if (pathname !== "/login" && !allowed) {
@@ -49,7 +47,11 @@ export default function AuthGate({ children }) {
     }
   }, [allowed, hydrated, pathname, router, session]);
 
-  if (!hydrated || pathname === "/") {
+  if (pathname === "/") {
+    return children;
+  }
+
+  if (!hydrated) {
     return (
       <main className="page appLoading" aria-live="polite">
         <p>Loading your workspace…</p>

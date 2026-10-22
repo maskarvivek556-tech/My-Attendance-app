@@ -195,15 +195,13 @@ export default function AccountsPage() {
                             <span>{account.email}</span>
                             {account.rollNo && <small>Roll no. {account.rollNo}</small>}
                           </div>
-                          {account.role !== "admin" && (
-                            <button
-                              className={styles.deleteButton}
-                              type="button"
-                              onClick={() => removeAccount(account)}
-                            >
-                              Remove
-                            </button>
-                          )}
+                          <button
+                            className={styles.deleteButton}
+                            type="button"
+                            onClick={() => removeAccount(account)}
+                          >
+                            Remove
+                          </button>
                         </article>
                       ))}
                     </div>

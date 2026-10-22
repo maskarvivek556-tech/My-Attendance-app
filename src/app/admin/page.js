@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { readData } from "@/lib/api";
+import { readData, subscribeToData } from "@/lib/api";
 import styles from "./admin.module.css";
 
 export default function AdminPage() {
@@ -11,6 +11,20 @@ export default function AdminPage() {
     students: readData("students", []).length,
     subjects: readData("subjects", []).length,
   }));
+  const [pendingRequests, setPendingRequests] = useState(() =>
+    readData("attendanceChangeRequests", []).filter((request) => request.status === "Pending")
+  );
+
+  useEffect(() => {
+    function refreshRequests() {
+      setPendingRequests(
+        readData("attendanceChangeRequests", []).filter((request) => request.status === "Pending")
+      );
+    }
+
+    refreshRequests();
+    return subscribeToData("attendanceChangeRequests", refreshRequests);
+  }, []);
 
   const cards = [
     { label: "Faculty members", value: counts.faculty, icon: "F", tone: "purple" },
@@ -42,6 +56,37 @@ export default function AdminPage() {
           ))}
         </section>
 
+        <section className={styles.pendingSection} aria-labelledby="pending-requests-title">
+          <div className={styles.pendingHeading}>
+            <div>
+              <h2 id="pending-requests-title">Attendance requests</h2>
+              <p>{pendingRequests.length
+                ? `${pendingRequests.length} request${pendingRequests.length === 1 ? "" : "s"} waiting for your review.`
+                : "No attendance requests are waiting for review."}
+              </p>
+            </div>
+            <Link href="/admin/attendance-requests">
+              {pendingRequests.length ? "Review requests" : "Open requests"}
+              <span aria-hidden="true"> →</span>
+            </Link>
+          </div>
+          {pendingRequests.length > 0 && (
+            <ul className={styles.pendingList}>
+              {pendingRequests.slice(0, 5).map((request) => (
+                <li key={request.id}>
+                  <Link href="/admin/attendance-requests">
+                    <span>
+                      <strong>{request.studentName}</strong>
+                      <small>{request.subject} · {request.date} · Requested by {request.facultyName}</small>
+                    </span>
+                    <span className={styles.requestStatus}>{request.requestedStatus}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
         <section className={styles.section}>
           <div className={styles.sectionHeading}>
             <div>
@@ -71,6 +116,14 @@ export default function AdminPage() {
               <span className={styles.actionText}>
                 <strong>Manage login accounts</strong>
                 <small>Register faculty and student email/password access.</small>
+              </span>
+              <span className={styles.arrow} aria-hidden="true">→</span>
+            </Link>
+            <Link className={styles.actionCard} href="/admin/attendance-requests">
+              <span className={`${styles.actionIcon} ${styles.green}`}>05</span>
+              <span className={styles.actionText}>
+                <strong>Attendance change requests</strong>
+                <small>Review faculty requests and update saved attendance.</small>
               </span>
               <span className={styles.arrow} aria-hidden="true">→</span>
             </Link>

@@ -66,7 +66,8 @@
 .statCard {
   display: flex;
   align-items: center;
-  gap: 18px;
+  justify-content: space-between;
+  gap: 14px;
   min-height: 130px;
   padding: 26px;
   border: 1px solid #e5e8f0;
@@ -83,14 +84,39 @@
   box-shadow: 0 14px 28px rgba(var(--primary-rgb), 0.15);
 }
 
+.statInfo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
 .statIcon {
   display: grid;
-  width: 54px;
-  height: 54px;
-  flex: 0 0 54px;
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
   place-items: center;
-  border-radius: 13px;
-  font-weight: 800;
+  border-radius: 18px;
+}
+
+.statSideIcon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  place-items: center;
+  border-radius: 12px;
+}
+
+.statSideIcon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.statIcon svg {
+  width: 40px;
+  height: 40px;
 }
 
 .tone0 {
@@ -110,20 +136,22 @@
 
 .statCard p {
   color: #64748b;
-  font-size: 15px;
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .statCard strong {
   display: block;
   margin-top: 2px;
   color: #182342;
-  font-size: 30px;
+  font-size: 34px;
+  font-weight: 800;
   line-height: 1.2;
 }
 
 .statCard small {
   color: #8993a6;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .sectionTitle {
@@ -186,6 +214,11 @@
   border-radius: 12px;
   background: #f0efff;
   color: #5b52d8;
+}
+
+.actionMark svg {
+  width: 27px;
+  height: 27px;
 }
 
 .actionCard h2 {
