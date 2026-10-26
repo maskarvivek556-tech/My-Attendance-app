@@ -5,8 +5,8 @@
   display: flex;
   min-height: 78px;
   align-items: center;
-  gap: clamp(16px, 3vw, 42px);
-  padding: 12px 32px;
+  gap: clamp(12px, 2vw, 30px);
+  padding: 12px 24px;
   border-bottom: 1px solid var(--border);
   background: color-mix(in srgb, var(--white) 94%, transparent);
   box-shadow: 0 8px 30px rgba(var(--primary-rgb), 0.07);
@@ -29,9 +29,14 @@
   display: grid;
   width: 40px;
   height: 40px;
+  flex: 0 0 40px;
   place-items: center;
   border-radius: 12px;
-  background: linear-gradient(145deg, color-mix(in srgb, var(--primary) 76%, white), var(--primary-dark));
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--primary) 76%, white),
+    var(--primary-dark)
+  );
   color: white;
   font-size: 19px;
   box-shadow: 0 7px 16px rgba(var(--primary-rgb), 0.27);
@@ -42,10 +47,12 @@
   color: var(--primary);
 }
 
+/* Search */
+
 .searchArea {
   position: relative;
   width: min(100%, 560px);
-  min-width: 180px;
+  min-width: 150px;
   margin: 0 auto;
 }
 
@@ -67,7 +74,7 @@
   box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.12);
 }
 
-.searchBox svg {
+.searchBox > svg {
   width: 19px;
   height: 19px;
   flex: 0 0 19px;
@@ -103,7 +110,12 @@
   border-radius: 50%;
   background: transparent;
   color: #64748b;
-  font-size: 21px;
+}
+
+.clearSearch:hover,
+.closeButton:hover {
+  background: #f0f2f8;
+  color: #202c49;
 }
 
 .searchResults {
@@ -124,8 +136,8 @@
 .searchResult {
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  padding: 9px 11px;
+  gap: 3px;
+  padding: 10px 11px;
   border-radius: 8px;
   text-decoration: none;
 }
@@ -153,6 +165,8 @@
   font-size: 13px;
 }
 
+/* Navbar actions */
+
 .actions {
   display: flex;
   flex: 0 0 auto;
@@ -162,13 +176,28 @@
 
 .utilityButton,
 .logoutButton {
+  display: inline-flex;
   min-height: 40px !important;
-  padding: 8px 13px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 12px;
   border: 1px solid transparent;
   border-radius: 9px;
   font-size: 14px;
   font-weight: 700;
-  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.utilityButton svg,
+.logoutButton svg {
+  flex: 0 0 auto;
 }
 
 .utilityButton {
@@ -181,16 +210,280 @@
   border-color: var(--accent-border);
   background: var(--accent-soft);
   color: var(--primary-dark);
+  transform: translateY(-1px);
 }
 
 .logoutButton {
-  background: #5757c9;
-  color: white;
+  background: #f8f8f9;
+  color: rgb(6, 6, 6);
 }
 
 .logoutButton:hover {
   background: #453bc9;
+  transform: translateY(-1px);
 }
+
+/* Notification bell */
+
+.notificationWrapper {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.iconButton {
+  position: relative;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  place-items: center;
+  border: 1px solid #e0e5ef;
+  border-radius: 11px;
+  background: #ffffff;
+  color: #44516b;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.iconButton:hover,
+.iconButtonActive {
+  border-color: #c7c5ff;
+  background: #f1f0ff;
+  color: var(--primary-dark);
+}
+
+.iconButton:hover {
+  transform: translateY(-1px);
+}
+
+.notificationBadge {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  display: grid;
+  min-width: 21px;
+  height: 21px;
+  place-items: center;
+  padding: 0 5px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: #ef233c;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 2px 7px rgba(239, 35, 60, 0.25);
+  animation: badge-pop 250ms ease-out;
+}
+
+/* Notification dropdown */
+
+.notificationDropdown {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: -60px;
+  z-index: 300;
+  display: flex;
+  width: min(390px, calc(100vw - 28px));
+  max-height: min(570px, 78vh);
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #e4e7f0;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 22px 65px rgba(24, 34, 70, 0.2);
+  animation: dropdown-in 180ms ease-out;
+}
+
+.notificationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 17px 18px;
+  border-bottom: 1px solid #edf0f5;
+  background: #ffffff;
+}
+
+.notificationHeader h2 {
+  margin: 0;
+  color: #202c49;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.notificationHeader p {
+  margin-top: 4px;
+  color: #7a8498;
+  font-size: 12px;
+}
+
+.markAllButton {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 9px;
+  border: 1px solid #e4e4ff;
+  border-radius: 8px;
+  background: #f5f4ff;
+  color: #5148c7;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.markAllButton:hover:not(:disabled) {
+  border-color: #c9c6ff;
+  background: #eae9ff;
+}
+
+.markAllButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.notificationList {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.notificationItem {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 15px 13px;
+  border: 0;
+  border-bottom: 1px solid #f0f2f7;
+  background: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.notificationItem:hover {
+  background: #f8f8ff;
+}
+
+.notificationUnread {
+  background: #fffafa;
+}
+
+.notificationUnread:hover {
+  background: #fff3f4;
+}
+
+.notificationIcon {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  flex: 0 0 39px;
+  place-items: center;
+  border-radius: 11px;
+}
+
+.generalIcon {
+  background: #eeedff;
+  color: #5b50d6;
+}
+
+.attendanceIcon {
+  background: #e7f8ef;
+  color: #16864b;
+}
+
+.notificationText {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 1px;
+}
+
+.notificationText strong {
+  color: #28334c;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.notificationText > span {
+  color: #6e788d;
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.notificationText small {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #9199a9;
+  font-size: 10px;
+}
+
+.unreadDot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: #ef233c;
+  box-shadow: 0 0 0 3px rgba(239, 35, 60, 0.09);
+}
+
+.notificationArrow {
+  flex: 0 0 15px;
+  margin-top: 10px;
+  color: #b1b7c5;
+}
+
+.emptyNotifications {
+  display: flex;
+  min-height: 180px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 24px;
+  color: #8b94a7;
+  text-align: center;
+}
+
+.emptyNotifications strong {
+  color: #34405b;
+  font-size: 14px;
+}
+
+.emptyNotifications p {
+  font-size: 12px;
+}
+
+.notificationFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px;
+  border-top: 1px solid #edf0f5;
+  background: #fafbff;
+}
+
+.notificationFooter span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #8a93a5;
+  font-size: 11px;
+}
+
+/* Chat and Help panels */
 
 .panelBackdrop {
   position: fixed;
@@ -213,6 +506,7 @@
   border-radius: 16px;
   background: white;
   box-shadow: 0 24px 70px rgba(15, 23, 42, 0.24);
+  animation: dropdown-in 180ms ease-out;
 }
 
 .helpPanel {
@@ -229,18 +523,36 @@
   background: #fafaff;
 }
 
+.panelTitle {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.panelTitleIcon {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  flex: 0 0 39px;
+  place-items: center;
+  border-radius: 11px;
+  background: #eeedff;
+  color: #5148c7;
+}
+
 .panelHeader h2 {
   color: #202c49;
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 800;
 }
 
 .panelHeader p {
+  margin-top: 4px;
   color: #778198;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .closeButton {
-  font-size: 25px;
   cursor: pointer;
 }
 
@@ -289,18 +601,35 @@
   min-width: 0;
   min-height: 42px;
   padding: 8px 11px;
+  border: 1px solid #e0e5ef;
+  border-radius: 9px;
+  outline: none;
   font-size: 14px;
 }
 
+.chatForm input:focus {
+  border-color: var(--primary);
+}
+
 .chatForm button {
+  display: inline-flex;
   min-height: 42px !important;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   padding: 8px 14px;
   border: 0;
   border-radius: 8px;
   background: #5148c7;
   color: white;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
+  cursor: pointer;
+}
+
+.chatForm button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .helpContent {
@@ -312,25 +641,72 @@
 }
 
 .helpContent h3 {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
   color: #293651;
   font-size: 15px;
 }
 
 .helpContent p {
   color: #64748b;
-  font-size: 14px;
-  line-height: 1.55;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-@media (max-width: 900px) {
+/* Animations */
+
+@keyframes brand-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes badge-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tablet */
+
+@media (max-width: 1100px) {
   .header {
-    gap: 16px;
-    padding: 12px 20px;
+    gap: 12px;
+    padding-right: 18px;
+    padding-left: 18px;
   }
 
   .logo {
+    gap: 8px;
     font-size: 22px;
+  }
+
+  .logoIcon {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
   }
 
   .actions {
@@ -339,45 +715,69 @@
 
   .utilityButton,
   .logoutButton {
-    padding-right: 10px;
-    padding-left: 10px;
+    gap: 5px;
+    padding-right: 9px;
+    padding-left: 9px;
+    font-size: 12px;
+  }
+
+  .iconButton {
+    width: 39px;
+    height: 39px;
+    flex-basis: 39px;
   }
 }
 
-@media (max-width: 640px) {
+/* Mobile */
+
+@media (max-width: 760px) {
   .header {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 10px 12px;
-    padding: 10px 16px;
+    padding: 10px 14px;
   }
 
   .logo {
-    gap: 8px;
     font-size: 21px;
-  }
-
-  .logoIcon {
-    width: 36px;
-    height: 36px;
   }
 
   .searchArea {
     grid-column: 1 / -1;
     grid-row: 2;
     width: 100%;
+    max-width: none;
+    margin: 0;
   }
 
   .actions {
     grid-column: 2;
     grid-row: 1;
+    gap: 5px;
   }
 
   .utilityButton,
   .logoutButton {
-    min-height: 36px !important;
-    padding: 6px 9px;
+    min-height: 37px !important;
+    padding: 7px 8px;
     font-size: 12px;
+  }
+
+  .utilityButton svg,
+  .logoutButton svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .iconButton {
+    width: 37px;
+    height: 37px;
+    flex-basis: 37px;
+  }
+
+  .notificationDropdown {
+    right: -45px;
+    top: calc(100% + 12px);
   }
 
   .panelBackdrop {
@@ -385,18 +785,56 @@
     padding: 10px;
   }
 
-  .chatPanel {
+  .chatPanel,
+  .helpPanel {
     width: 100%;
     max-height: 84vh;
   }
 }
 
-@keyframes brand-bob {
-  0%, 100% {
-    transform: translateY(0);
+@media (max-width: 420px) {
+  .header {
+    padding-right: 10px;
+    padding-left: 10px;
   }
-  50% {
-    transform: translateY(-3px);
+
+  .logo {
+    gap: 6px;
+    font-size: 18px;
+  }
+
+  .logoIcon {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    border-radius: 9px;
+    font-size: 16px;
+  }
+
+  .actions {
+    gap: 4px;
+  }
+
+  .utilityButton,
+  .logoutButton {
+    min-height: 35px !important;
+    gap: 4px;
+    padding: 6px;
+    font-size: 11px;
+  }
+
+  .iconButton {
+    width: 35px;
+    height: 35px;
+    flex-basis: 35px;
+  }
+
+  .notificationDropdown {
+    right: -40px;
+  }
+
+  .markAllButton {
+    padding: 7px;
   }
 }
 
@@ -404,4 +842,27 @@
   .logoIcon {
     animation: none;
   }
+
+  .notificationBadge,
+  .notificationDropdown,
+  .chatPanel {
+    animation: none;
+  }
+
+  .utilityButton,
+  .logoutButton,
+  .iconButton {
+    transition: none;
+  }
+}
+/* AttendEase Top Navigation Background */
+header:has(a[href="/faculty"]) {
+  background: linear-gradient(
+    90deg,
+    #eed0c6,
+    #db4c4c,
+    #eed0c6
+  ) !important;
+
+  border-bottom: 1px solid #4338ca !important;
 }

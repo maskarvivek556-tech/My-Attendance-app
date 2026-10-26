@@ -116,13 +116,64 @@ export default function FacultyPage() {
     <main className="page">
       <div className={`container ${styles.container}`}>
         <header className={styles.header}>
-          <div>
-            <p className={styles.eyebrow}>FACULTY WORKSPACE</p>
-            <h1>Faculty Dashboard</h1>
-            <p>Manage your students and daily attendance.</p>
-          </div>
-          <span className={styles.welcomeIcon}>✓</span>
-        </header>
+  <div className={styles.headerContent}>
+    <p className={styles.eyebrow}>FACULTY WORKSPACE</p>
+    <h1>Faculty Dashboard</h1>
+    <p>Manage your students and daily attendance.</p>
+  </div>
+
+  <div className={styles.headerRight}>
+    <nav className={styles.headerShortcuts} aria-label="Faculty shortcuts">
+      <Link
+        href="/faculty/students"
+        className={styles.shortcut}
+        title="Manage Students"
+        aria-label="Manage Students"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+          aria-hidden="true">
+          <circle cx="9" cy="8" r="3" />
+          <path d="M3.5 19a5.5 5.5 0 0 1 11 0M17 8h4m-2-2v4" />
+        </svg>
+        <span>Students</span>
+      </Link>
+
+      <Link
+        href="/faculty/attendance"
+        className={styles.shortcut}
+        title="Mark Attendance"
+        aria-label="Mark Attendance"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+          aria-hidden="true">
+          <rect x="4" y="3" width="16" height="18" rx="2" />
+          <path d="M8 8h8m-8 4h3m2 1 1.5 1.5L19 11" />
+        </svg>
+        <span>Attendance</span>
+      </Link>
+
+      <Link
+        href="/faculty/reports"
+        className={styles.shortcut}
+        title="Attendance Reports"
+        aria-label="Attendance Reports"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+          aria-hidden="true">
+          <path d="M4 19V5m0 14h17" />
+          <path d="m7 15 4-4 3 2 5-6" />
+          <path d="M16 7h3v3" />
+        </svg>
+        <span>Reports</span>
+      </Link>
+    </nav>
+
+    <span className={styles.welcomeIcon}>✓</span>
+  </div>
+</header>
 
         <section className={styles.stats} aria-label="Attendance overview">
           {stats.map((stat, index) => (

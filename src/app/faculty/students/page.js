@@ -147,7 +147,7 @@ export default function StudentsPage() {
   }
 
   return (
-    <main className="page">
+    <main className={`page ${styles.studentAnimatedBackground}`}>
       <div className={`container ${styles.container}`}>
         <h1 className="pageTitle">Student Management</h1>
         <p className="pageDescription">
@@ -175,7 +175,7 @@ export default function StudentsPage() {
 
         {message && <p className={styles.message}>{message}</p>}
 
-        <form className={styles.form} onSubmit={submitStudent}>
+       <form className={`${styles.form} ${styles.studentAnimatedCard}`} onSubmit={submitStudent}>
           <div className={styles.field}>
             <label htmlFor="name">Student name</label>
             <input
@@ -246,7 +246,7 @@ export default function StudentsPage() {
             </select>
           </div>
 
-          <button className={styles.submitButton} type="submit">
+          <button className={`${styles.submitButton} ${styles.studentAnimatedButton}`} type="submit">
             {editingId !== null ? "Update Student" : "Add Student"}
           </button>
 

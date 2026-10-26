@@ -1,16 +1,29 @@
 .shell {
   display: flex;
+  align-items: stretch;
   min-height: calc(100vh - 78px);
+  width: 100%;
 }
 
 .content {
-  min-width: 0;
   flex: 1;
+  min-width: 0;
+  width: calc(100% - 248px);
   container-type: inline-size;
+  transition: width 250ms ease, margin-left 250ms ease;
 }
 
-@media (max-width: 1100px) {
+.collapsed .content {
+  width: calc(100% - 76px);
+}
+
+@media (max-width: 760px) {
   .shell {
     flex-direction: column;
+  }
+
+  .content,
+  .collapsed .content {
+    width: 100%;
   }
 }
