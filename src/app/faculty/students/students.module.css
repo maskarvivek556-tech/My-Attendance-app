@@ -90,16 +90,19 @@
 .submitButton {
   background: #4f46e5;
   color: white;
-  font-size: 16px;       /* Text size */
-  padding: 10px 20px;    /* Height and width spacing */
-  width: 500px;          /* Button width */
-  height: 45px;          /* Button height */
+  font-size: 16px;      
+  padding: 10px 20px;           
   border: none;
   border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 37px;
- 
+  width: 100%;
+  max-width: 500px;
+  min-width: 0;
+  height: 45px;
+  margin-top: 20px;
+  box-sizing: border-box;
+
 }
 
 .deleteButton {
@@ -269,4 +272,55 @@
 /* Form Hover Effect */
 .form:hover {
   box-shadow: 0 12px 30px rgba(124, 58, 237, 0.2);
+}
+
+/* Student Form Responsive Fix */
+.form {
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.field {
+  min-width: 0;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .studentAnimatedBackground {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .studentAnimatedCard {
+    padding: 14px;
+  }
+
+  .form {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .field input,
+  .field select {
+    padding: 11px;
+    font-size: 16px;
+  }
+
+  .submitButton,
+  .deleteButton,
+  .editButton {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
 }
